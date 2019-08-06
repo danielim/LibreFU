@@ -2,13 +2,14 @@
 
 var express = require("express");
 var multer = require("multer");
+var uploadir = "./uploads/";
 var app = express();
 var port = 3000;
 
 var storage = multer.diskStorage({
     destination: function (req, file, cb) {
         "use strict";
-        cb(null, "./uploads/");
+        cb(null, uploadir);
     },
     filename: function(req, file, cb) {
         "use strict";
@@ -38,7 +39,7 @@ app.post("/api/single", function(req, res){
             return res.end("Error uploading file.");
         }
         console.log(req.file.filename);
-        var fileUrl = "../" + req.file.filename;
+        var fileUrl = uploadir + req.file.filename;
         res.send("<a href='" + fileUrl + "'>File uploaded successfully.</a>");
     });
 });
